@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:loadBundle basename="resources.application" var="msg" />
+
+<h:head>
+	<title><h:outputText value="#{msg.welcomeTitle}" /></title>
+</h:head>
+
+<body>
+	<h:form>
+		<p:panel id="panel" header="New User">
+
+			<p:messages id="msgs" />
+
+			<h:panelGrid columns="3" cellpadding="5">
+				<p:outputLabel for="userName" value="Username:" />
+				<p:inputText id="userName" value="#{userView.user.userName}"
+					required="true" label="Username">
+					<f:validateLength minimum="6" />
+				</p:inputText>
+				<p:message for="userName" display="icon" />
+
+				<p:outputLabel for="firstName" value="Firstname:" />
+				<p:inputText id="firstName" value="#{userView.user.firstName}"
+					required="true" label="Firstname">
+					<f:validateLength minimum="2" />
+				</p:inputText>
+				<p:message for="firstName" display="icon" />
+
+				<p:outputLabel for="lastName" value="Lastname:" />
+				<p:inputText id="lastName" value="#{userView.user.lastName}"
+					label="LastName" required="true">
+					<f:validateLength minimum="2" />
+				</p:inputText>
+				<p:message for="lastName" display="icon" />
+
+			</h:panelGrid>
+
+			<p:commandButton value="Acept" update="panel, panelList"
+				actionListener="#{userView.acept}" icon="ui-icon-check" />
+		</p:panel>
+		<p:panel id="panelList" header="Recommended username">
+			<p:dataList value="#{userView.list}" var="userName" type="ordered">
+				<f:facet name="header">
+            		List username
+        		</f:facet>
+        			#{userName}
+   			</p:dataList>
+		</p:panel>
+	</h:form>
+</body>
+</html>
